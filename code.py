@@ -1,19 +1,19 @@
-import os, platform
+import os as term
 import subprocess
 import platform
 import socket
 import random
 import string
 import time
-import os
 
+term.system('title ' + 'Cyber-Terminal')
 path = 'C:/'
 path2 = 'E:/'
 path3 = 'D:/'
 quit = "/h"
 host_name = socket.gethostname()
 host_ip = socket.gethostbyname(host_name)
-chars_e = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@£$%^&*().,?0123456789'
+chars_e = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!0123456789'
 
 print("""Kinect | Cyber Terminal [Version 1.00]
 (C) Kinect Software. All rights reserved.
@@ -28,41 +28,32 @@ def main():
 			time.sleep(0.5)
 			terminal()
 
-		if command == 'list/C':
-			list_C()
-
-		if command == 'list/E':
-			list_E()
-
 		if command == 'ping':
 			ping_s()
 
 		if command == 'local':
 			local()
 
-		if command == 'proxy -w':
-			proxy_w()
-
-		if command == 'proxy -l':
-			proxy_l()
-
 		if command == 'help':
 			help()
 
-		if command == 'close':
+		if command == 'cls':
 			break
+
+		if command == 'net list':
+			net()
 
 		if command == 'password':
 			password()
 
-		if command == 'color 0':
-			os.system('color 0')
+		if command == 'title':
+			title()
 
-		if command == 'color 1':
-			os.system('color 1')
+		if command == 'os':
+			os()
 
-		if command == 'color 2':
-			os.system('color 2')
+		if command == 'info':
+			license()
 
 def terminal():
 	while True:
@@ -73,17 +64,7 @@ def terminal():
 			time.sleep(0.5)
 			main()
 		else:
-			os.system(command2)
-
-def list_C():
-	dir_list = os.listdir(path)
-	print("Files and Directories in '", path, "' :")
-	print(dir_list)
-
-def list_E():
-	dir_listE = os.listdir(path2)
-	print("Files and Directories in '", path2, "' :")
-	print(dir_listE)
+			term.system(command2)
 
 def ping_s():
 	host = input("Enter Website To Ping: ")
@@ -97,14 +78,6 @@ def ping_s():
 
 def local():
 	print("Your Local IPS Is: " + host_ip)
-
-def proxy_l():
-	port = input("Enter Port: ")
-	os.system('python3 -m http.server ' + port)
-
-def proxy_w():
-	port2 = input("Enter Port: ")
-	os.system('python -m http.server ' + port2)
 
 def password():
     number_e = input('Please Enter a Number of Passwords to Genirate: ')
@@ -127,16 +100,41 @@ def password():
     		password_e += random.choice(chars_e)
     	print(password_e)
 
+def net():
+	print("Finding All Active Connections")
+	time.sleep(0.5)
+	term.system('netstat')
+
+def title():
+	name = input("Enter new title Name: ")
+	time.sleep(0.5)
+	term.system('title ' + name)
+	print("title Changed Successfully To: " +  name)
+
+def os():
+	print("OS NAME: " + platform.system())
+	print("OS VERSION: " + platform.release())
+
+def license():
+	print("Company Name: Kinect Software")
+	print("ever since: 2020-2021")
+	print("Version Update: 1.00")
+	print("Website: https://kinectcode.com/")
+	print("Contact Email: kinectcode@gmail.com")
+	print("""About: Kinect Software Was Founded in 2020  By Aidan Bologna,
+Kinect's Main Goal Is To Make Software Easy To Use.
+That's Why We Made The Cyber-Terminal a Super Easy To-Use Terminal""")
+
 def help():
 	print("""
 [/t] Switch into terminal commands
-[list/C] List all file in the C:/ Drive
-[list/E] list all files in E:/ drive
 [ping] Ping any website
+[net list] List all the Curennt Active Network Connections
+[password] Genirate random passwords
 [local] list your local IPS
-[proxy -w] create a proxy server for windows
-[proxy -l] create a proxy server for linux
+[title] Change the title name of the terminal
 [close] Close the terminal
+[os] List Your OS Name And Version Update
 [help] list all commands for Cyber-Terminal
 	""")
 
